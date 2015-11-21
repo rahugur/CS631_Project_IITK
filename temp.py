@@ -4,7 +4,6 @@
 
 # Enter the userid and userfilename as command line argument
 import sys
-import numpy
 user = sys.argv[1]
 user_file = 'hw1/User' + str(user)
 mapping_mat = []
@@ -55,7 +54,7 @@ for j in range(0, 50):							# Making slots of 100 commadns for each user
 		co_mat.append(temp_row)
 	comat_log.append(co_mat)
 
-# Computing the average (biggest size) matrix
+# Computing the average biggest matrix
 for i in range(mat_len):
 	for j in range(mat_len):
 		if(count_mat[i][j]==0):
@@ -68,10 +67,9 @@ for i in range(50):
 		for k in range(len(distinct_commands)):
 			comat_log[i][j][k] -= avg_mat[j][k]
 
-mat_len_sq = mat_len*mat_len
-sum = numpy.zeros(shape=(mat_len_sq, mat_len_sq))
+sum = mat_create(mat_len*mat_len)
 for i in range(50):
-	# print i
+	print i
 	flattened = [val for sublist in comat_log[i] for val in sublist]
 	# print flattened
 	# Calculating F[T]*F
@@ -81,8 +79,9 @@ for i in range(50):
 		for k in range(mat_len*mat_len):
 			temp_1.append(flattened[j]*flattened[k])
 		temp.append(temp_1)
-	for j in range(mat_len_sq):
-		for k in range(mat_len_sq):
+	print 'yes'
+	for j in range(mat_len*mat_len):
+		for k in range(mat_len*mat_len):
 			sum[j][k] += temp[j][k]
-			
-numpy.savetxt("output/user_" + user + ".csv", sum, delimiter=",")
+
+print sumf
