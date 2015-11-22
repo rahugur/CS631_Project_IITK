@@ -117,6 +117,9 @@ for l in range(50):
 		for i in range(mat_len_sq):
 			m += a_cap[i]*newlist[k][i]
 		feature_vec.append(m)
+		// matrix sum fi*Vi
+		// network += m*eigen_coucc_mat[k]
+	// all_network.append(network)
 
 	all_fv.append(feature_vec)
 
