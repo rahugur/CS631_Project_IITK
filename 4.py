@@ -20,8 +20,92 @@ total_commands = content[0:5000]
 distinct_commands = list(set(total_commands))
 mat_len = len(distinct_commands)
 mat_len_sq = mat_len*mat_len
+total_mat = mat_create(mat_len)
+count_mat = mat_create(mat_len)
+avg_mat = mat_create(mat_len)
+comat_log = []									# List of co occurence matrices for all spaces of the current user
+for j in range(0, 50):							# Making slots of 100 commadns for each user
+	commands = content[(j)*100: (j+1)*100]
+	commands_unique = list(set(commands))				# Removing duplicates fromt he c
+	mapping_mat.append(commands_unique)					# Appending the unique commands list to the mapping matrix
+	co_mat = []											# Co occurence matrix, list of lists
+	for command in distinct_commands:
+		temp_row = [0]*len(distinct_commands)									# Each row of the cooccurence matrix
+		for k in range(0, 100):
+			if(commands[k] == command):
+				for l in range(1, win_size):
+					if((l+k)>99):
+						break
+					comm = commands[l+k]
+					ind = distinct_commands.index(comm)
+					temp_row[ind] += 1
+		try:
+			for k in range(len(temp_row)):
+				if(temp_row[k]):
+					ind_i = distinct_commands.index(command)
+					total_mat[ind_i][k] += temp_row[k]
+					count_mat[ind_i][k] += 1
+		except:
+			 e = sys.exc_info()[0]
+		co_mat.append(temp_row)
+	comat_log.append(co_mat)
+
+# Computing the average (biggest size) matrix
+for i in range(mat_len):
+	for j in range(mat_len):
+		if(count_mat[i][j]==0):
+			avg_mat[i][j] = 0
+		else:
+			avg_mat[i][j] = float(total_mat[i][j])/count_mat[i][j]
+
+for i in range(50):
+	for j in range(len(distinct_commands)):
+		for k in range(len(distinct_commands)):
+			comat_log[i][j][k] -= avg_mat[j][k]
 
 sum = numpy.genfromtxt("output/user_" + user + ".csv", delimiter=",")
 w, v = LA.eig(sum)
+v_list = tolist(v)
+c = lambda x: w[v_list.index(x)]
+newlist = sorted(w, key=c, reverse=False)
 
-print w
+eigen_sum = 0
+v_len = len(v)
+for i in range(v_len):
+	eigen_sum += v[i]
+
+good_sum = 0.9*eigen_sum
+
+v_sum = 0
+for i in range(v_len):
+	v_sum += v[i]
+	if(v_sum>good_sum):
+		breaking_i = i
+		break
+sum = 0
+
+eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
+
+for k in range(breaking_i):
+	cooc = numpy.zeros(shape=(mat_len,mat_len))
+	for i in range(mat_len):
+		for j in range(mat_len):
+			cooc[i][j] = newlist[k][i*mat_len+j]
+	eigen_coucc_mat.append(cooc)
+
+all_fv = numpy.zeros(shape=50)
+for l in range(50):
+	feature_vec = numpy.zeros(shape=breaking_i)
+	for k in range(breaking_i):
+		a_cap = numpy.zeros(shape=mat_len_sq)	
+		for i in range(mat_len):
+			for j in range(mat_len):
+				a_cap[i*mat_len + j] = comat_log[l][i][j]
+		m = 0
+		for i in range(mat_len_sq):
+			m += a_cap[i]*newlist[k][i]
+		feature_vec.append(m)
+
+	all_fv.append(feature_vec)
+
+numpy.savetxt("output/user_fv_" + user + ".csv", sum, delimiter=",")
