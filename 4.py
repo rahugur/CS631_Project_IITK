@@ -106,8 +106,10 @@ for k in range(breaking_i):
 	eigen_coucc_mat.append(cooc)
 
 all_fv = numpy.zeros(shape=50)
+all_network = numpy.zeros(shape=50)
 for l in range(50):
 	feature_vec = numpy.zeros(shape=breaking_i)
+	network = numpy.zeros(shape=(mat_len,mat_len))
 	for k in range(breaking_i):
 		a_cap = numpy.zeros(shape=mat_len_sq)	
 		for i in range(mat_len):
@@ -118,9 +120,10 @@ for l in range(50):
 			m += a_cap[i]*newlist[k][i]
 		feature_vec.append(m)
 		// matrix sum fi*Vi
-		// network += m*eigen_coucc_mat[k]
-	// all_network.append(network)
-
+		for i in range(mat_len):
+			for j in range(mat_len):
+				network[i][j] += eigen_coucc_mat[k][i][j]*m
+	all_network.append(network)
 	all_fv.append(feature_vec)
 
 print "done 6"
