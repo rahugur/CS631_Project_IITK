@@ -11,6 +11,13 @@ user_file = 'hw1/User' + str(user)
 mapping_mat = []
 win_size = 5
 
+def mat_create(size):
+	matricx = []
+	for i in range(size):
+		a = [0]*size
+		matricx.append(a)
+	return matricx
+
 # Reading commands in the file for each user 
 with open(user_file) as f:
 	content = f.readlines()
