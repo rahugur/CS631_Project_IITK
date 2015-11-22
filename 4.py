@@ -23,6 +23,7 @@ with open(user_file) as f:
 	content = f.readlines()
 	content = [x.strip('\n') for x in content]
 
+print "done 1"
 total_commands = content[0:5000]
 distinct_commands = list(set(total_commands))
 mat_len = len(distinct_commands)
@@ -57,6 +58,7 @@ for j in range(0, 50):							# Making slots of 100 commadns for each user
 		co_mat.append(temp_row)
 	comat_log.append(co_mat)
 
+print "done 2"
 # Computing the average (biggest size) matrix
 for i in range(mat_len):
 	for j in range(mat_len):
@@ -70,9 +72,11 @@ for i in range(50):
 		for k in range(len(distinct_commands)):
 			comat_log[i][j][k] -= avg_mat[j][k]
 
+print "done 3"
 sum = numpy.genfromtxt("output/user_" + user + ".csv", delimiter=",")
 w, v = LA.eig(sum)
 v_list = tolist(v)
+print "done 4"
 c = lambda x: w[v_list.index(x)]
 newlist = sorted(w, key=c, reverse=False)
 
@@ -93,6 +97,7 @@ sum = 0
 
 eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
 
+print "done 5"
 for k in range(breaking_i):
 	cooc = numpy.zeros(shape=(mat_len,mat_len))
 	for i in range(mat_len):
@@ -115,4 +120,5 @@ for l in range(50):
 
 	all_fv.append(feature_vec)
 
+print "done 6"
 numpy.savetxt("output/user_fv_" + user + ".csv", sum, delimiter=",")
