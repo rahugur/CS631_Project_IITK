@@ -80,11 +80,7 @@ print "done 4"
 c = lambda x: w[v_list.index(x)]
 newlist = sorted(w, key=c, reverse=False)
 
-eigen_sum = 0
-v_len = len(v)
-for i in range(v_len):
-	eigen_sum += v[i]
-
+sum = 0
 breaking_i = 50
 
 eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
