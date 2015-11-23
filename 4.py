@@ -85,15 +85,7 @@ v_len = len(v)
 for i in range(v_len):
 	eigen_sum += v[i]
 
-good_sum = 0.9*eigen_sum
-
-v_sum = 0
-for i in range(v_len):
-	v_sum += v[i]
-	if(v_sum>good_sum):
-		breaking_i = i
-		break
-sum = 0
+breaking_i = 50
 
 eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
 
