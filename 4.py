@@ -75,10 +75,15 @@ for i in range(50):
 print "done 3"
 sum = numpy.genfromtxt("output/user_" + user + ".csv", delimiter=",")
 w, v = LA.eig(sum)
-v_list = v.tolist()
+#v_list = v.tolist()
 print "done 4"
-c = lambda x: w[v_list.index(x)]
-newlist = sorted(w, key=c, reverse=False)
+#c = lambda x: w[v_list.index(x)]
+#newlist = sorted(w, key=c, reverse=False)
+#Converting to list for sorting 
+X = v.tolist()
+Y = w.tolist()
+
+newlist = [x for (y,x) in sorted(zip(Y,X))]
 
 sum = 0
 breaking_i = 50
