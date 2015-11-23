@@ -75,7 +75,7 @@ for i in range(50):
 print "done 3"
 sum = numpy.genfromtxt("output/user_" + user + ".csv", delimiter=",")
 w, v = LA.eig(sum)
-v_list = tolist(v)
+v_list = v.tolist()
 print "done 4"
 c = lambda x: w[v_list.index(x)]
 newlist = sorted(w, key=c, reverse=False)
