@@ -177,4 +177,15 @@ for i in range(100):
 			max_similarity=similarity
 			
 	max_sim_mat.append(max_similarity)
-	
+# Computing the min amd max of the similarity list of sequences for a user
+max_sim = max(max_sim_mat)
+min_sim = min(max_sim_mat)
+
+# Parsing the reference.txt 
+f = open('hw1/reference.txt', 'rb');
+a = f.readlines()
+a = [x.strip() for x in a]
+corr_classified = []
+for i in a:
+	corr_classified.append(i.split()[user-1])
+
