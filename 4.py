@@ -98,12 +98,8 @@ for k in range(breaking_i):
 			cooc[i][j] = newlist[k][i*mat_len+j]
 	eigen_coucc_mat.append(cooc)
 
-all_fv = numpy.zeros(shape=50)
-all_network = numpy.zeros(shape=50)
 allpos_layer = numpy.zeros(shape=50)
 for l in range(50):
-	feature_vec = numpy.zeros(shape=breaking_i)
-	network = numpy.zeros(shape=(mat_len,mat_len))
 	pos_layer = numpy.zeros(shape=breaking_i)
 	for k in range(breaking_i):
 		a_cap = numpy.zeros(shape=mat_len_sq)
@@ -114,16 +110,13 @@ for l in range(50):
 		m = 0
 		for i in range(mat_len_sq):
 			m += a_cap[i]*newlist[k][i]
-		feature_vec.append(m)
 		# matrix sum fi*Vi
 		for i in range(mat_len):
 			for j in range(mat_len):
-				network[i][j] += eigen_coucc_mat[k][i][j]*m
-				if (network[i][j]>POSH):
+				const = eigen_coucc_mat[k][i][j]*m
+				if (const>POSH):
 					poslay[i][j] = 1
 		pos_layer.append(poslay)
-	all_network.append(network)
-	all_fv.append(feature_vec)
 	allpos_layer.append(pos_layer)
 
 print "done 6"
@@ -146,8 +139,26 @@ for j in range(50,150):
 					temp_row[ind] += 1
 		co_mat.append(temp_row)
 	test_comat.append(co_mat)
-for i in range(50):
+for i in range(100):
 	for j in range(len(distinct_commands)):
 		for k in range(len(distinct_commands)):
 			test_comat[i][j][k] -= avg_mat[j][k]
 
+for i in range(100):
+	pos_layer = numpy.zeros(shape=breaking_i)
+	for k in range(breaking_i):
+		a_cap = numpy.zeros(shape=mat_len_sq)
+		poslay = numpy.zeros(shape=(mat_len,mat_len))
+		for m in range(mat_len):
+			for j in range(mat_len):
+				a_cap[m*mat_len + j] = test_comat[i][m][j]
+		fv_point = 0
+		for m in range(mat_len_sq):
+			fv_point += a_cap[m]*newlist[k][m]
+		for m in range(mat_len):
+			for j in range(mat_len):
+				const = eigen_coucc_mat[k][m][j]*m
+				if (const>POSH):
+					poslay[i][j] = 1
+		pos_layer.append(poslay)
+	#Only similarity checking left
