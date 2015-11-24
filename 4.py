@@ -190,3 +190,25 @@ corr_classified = []
 for i in a:
 	corr_classified.append(i.split()[user-1])
 
+const = float(max_sim - min_sim)/100
+detection = numpy.zeros(shape=(100, 2))
+for i in range(100):
+	epsilon = min_sim + i*const
+	test_classified = []
+	for j in range(100):
+		if max_sim_mat[j]>epsilon:
+			test_classified.append(1)
+		else:
+			test_classified.append(0)
+	# Matching the results with correct given data 
+	correct_detection = 0
+	false_detection = 0
+	for j in range(100):
+		if test_classified[j]*corr_classified[j] == 1:
+			correct_detection += 1
+		if test_classified[j] == 1 and corr_classified[j] == 0:
+			false_detection += 1
+	detection[i][0] = correction_detection
+	detection[i][1] = false_detection
+
+numpy.savetxt("output/user_fv_" + user + ".csv", detection, delimiter=",")
