@@ -145,6 +145,7 @@ for i in range(100):
 		for k in range(len(distinct_commands)):
 			test_comat[i][j][k] -= avg_mat[j][k]
 
+max_sim_mat = []
 for i in range(100):
 	pos_layer = numpy.zeros(shape=breaking_i)
 	for k in range(breaking_i):
@@ -163,3 +164,17 @@ for i in range(100):
 					poslay[i][j] = 1
 		pos_layer.append(poslay)
 	#Only similarity checking left
+	max_similarity = 0
+	for j in range(50):
+		similarity = 0
+		for k in range(breaking_i):
+			for a in range(mat_len):
+				for b in range(mat_len):
+					for c in range(mat_len):
+						temp_add = allpos_layer[j][k][a][b]*allpos_layer[j][k][b][c]*pos_layer[k][a][b]*pos_layer[k][b][c]
+						similarity += temp_add
+		if similarity>max_similarity:
+			max_similarity=similarity
+			
+	max_sim_mat.append(max_similarity)
+	
