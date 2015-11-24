@@ -74,7 +74,7 @@ for i in range(50):
 
 print "done 3"
 sum = numpy.genfromtxt("output/user_" + user + ".csv", delimiter=",")
-w, v = LA.eig(sum)
+w, v = LA.eigh(sum)
 #v_list = v.tolist()
 print "done 4"
 #c = lambda x: w[v_list.index(x)]
@@ -87,7 +87,8 @@ newlist = [x for (y,x) in sorted(zip(Y,X))]
 
 sum = 0
 breaking_i = 50
-
+POSH = 0
+h
 eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
 
 print "done 5"
