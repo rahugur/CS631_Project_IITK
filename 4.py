@@ -100,11 +100,14 @@ for k in range(breaking_i):
 
 all_fv = numpy.zeros(shape=50)
 all_network = numpy.zeros(shape=50)
+allpos_layer = numpy.zeros(shape=50)
 for l in range(50):
 	feature_vec = numpy.zeros(shape=breaking_i)
 	network = numpy.zeros(shape=(mat_len,mat_len))
+	pos_layer = numpy.zeros(shape=breaking_i)
 	for k in range(breaking_i):
-		a_cap = numpy.zeros(shape=mat_len_sq)	
+		a_cap = numpy.zeros(shape=mat_len_sq)
+		poslay = numpy.zeros(shape=(mat_len,mat_len))
 		for i in range(mat_len):
 			for j in range(mat_len):
 				a_cap[i*mat_len + j] = comat_log[l][i][j]
@@ -116,8 +119,12 @@ for l in range(50):
 		for i in range(mat_len):
 			for j in range(mat_len):
 				network[i][j] += eigen_coucc_mat[k][i][j]*m
+				if (network[i][j]>POSH):
+					poslay[i][j] = 1
+		pos_layer.append(poslay)
 	all_network.append(network)
 	all_fv.append(feature_vec)
+	allpos_layer.append(pos_layer)
 
 print "done 6"
 numpy.savetxt("output/user_fv_" + user + ".csv", sum, delimiter=",")
