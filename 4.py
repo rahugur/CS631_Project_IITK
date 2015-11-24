@@ -128,3 +128,26 @@ for l in range(50):
 
 print "done 6"
 numpy.savetxt("output/user_fv_" + user + ".csv", sum, delimiter=",")
+
+test_comat = []
+for j in range(50,150):
+	commands = content[(j)*100: (j+1)*100]
+	commands_unique = list(set(commands))
+	co_mat = []
+	for command in distinct_commands:
+		temp_row = [0]*len(distinct_commands)									# Each row of the cooccurence matrix
+		for k in range(0, 100):
+			if(commands[k] == command):
+				for l in range(1, win_size):
+					if((l+k)>99):
+						break
+					comm = commands[l+k]
+					ind = distinct_commands.index(comm)
+					temp_row[ind] += 1
+		co_mat.append(temp_row)
+	test_comat.append(co_mat)
+for i in range(50):
+	for j in range(len(distinct_commands)):
+		for k in range(len(distinct_commands)):
+			test_comat[i][j][k] -= avg_mat[j][k]
+
