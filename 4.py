@@ -211,4 +211,4 @@ for i in range(100):
 	detection[i][0] = correction_detection
 	detection[i][1] = false_detection
 
-numpy.savetxt("output/user_fv_" + user + ".csv", detection, delimiter=",")
+numpy.savetxt("output/user_graph_" + user + ".csv", detection, delimiter=",")
