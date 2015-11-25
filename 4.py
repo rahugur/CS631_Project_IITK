@@ -172,8 +172,8 @@ for i in range(100):
 				for b in range(mat_len):
 					for c in range(mat_len):
 						if (a-b)*(b-c)*(c-a)!=0:
-						temp_add = allpos_layer[j][k][a][b]*allpos_layer[j][k][b][c]*pos_layer[k][a][b]*pos_layer[k][b][c]
-						similarity += temp_add
+							temp_add = allpos_layer[j][k][a][b]*allpos_layer[j][k][b][c]*pos_layer[k][a][b]*pos_layer[k][b][c]
+							similarity += temp_add
 		if similarity>max_similarity:
 			max_similarity=similarity
 			
