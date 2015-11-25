@@ -140,8 +140,9 @@ for j in range(50,150):
 					if((l+k)>99):
 						break
 					comm = commands[l+k]
-					ind = distinct_commands.index(comm)
-					temp_row[ind] += 1
+					if comm in distinct_commands:
+						ind = distinct_commands.index(comm)
+						temp_row[ind] += 1
 		co_mat.append(temp_row)
 	test_comat.append(co_mat)
 for i in range(100):
