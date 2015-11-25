@@ -80,6 +80,7 @@ print "done 4"
 #c = lambda x: w[v_list.index(x)]
 #newlist = sorted(w, key=c, reverse=False)
 #Converting to list for sorting 
+numpy.savetxt("output/user_eigenvalues_"+user+".csv",w,delimiter=",")
 X = v.tolist()
 Y = w.tolist()
 
