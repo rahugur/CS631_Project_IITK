@@ -88,7 +88,7 @@ newlist = [x for (y,x) in sorted(zip(Y,X))]
 sum = 0
 breaking_i = 50
 POSH = 0
-h
+#h
 eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
 
 print "done 5"
