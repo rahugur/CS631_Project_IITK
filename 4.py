@@ -89,7 +89,7 @@ sum = 0
 breaking_i = 50
 POSH = 0
 #h
-eigen_coucc_mat = numpy.zeros(shape=(breaking_i))
+eigen_coucc_mat = []
 
 print "done 5"
 for k in range(breaking_i):
@@ -99,9 +99,10 @@ for k in range(breaking_i):
 			cooc[i][j] = newlist[k][i*mat_len+j]
 	eigen_coucc_mat.append(cooc)
 
-allpos_layer = numpy.zeros(shape=50)
+allpos_layer = []
+fv = numpy.zeros(shape=(5,breaking_i))
 for l in range(50):
-	pos_layer = numpy.zeros(shape=breaking_i)
+	pos_layer = []
 	for k in range(breaking_i):
 		a_cap = numpy.zeros(shape=mat_len_sq)
 		poslay = numpy.zeros(shape=(mat_len,mat_len))
@@ -112,6 +113,8 @@ for l in range(50):
 		for i in range(mat_len_sq):
 			m += a_cap[i]*newlist[k][i]
 		# matrix sum fi*Vi
+		if (l<5):
+			fv[l][k] = m
 		for i in range(mat_len):
 			for j in range(mat_len):
 				const = eigen_coucc_mat[k][i][j]*m
@@ -121,7 +124,7 @@ for l in range(50):
 	allpos_layer.append(pos_layer)
 
 print "done 6"
-numpy.savetxt("output/user_fv_" + user + ".csv", sum, delimiter=",")
+numpy.savetxt("output/user_fv_" + user + ".csv", fv, delimiter=",")
 
 test_comat = []
 for j in range(50,150):
