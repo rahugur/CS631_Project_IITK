@@ -152,7 +152,7 @@ for i in range(100):
 
 max_sim_mat = []
 for i in range(100):
-	pos_layer = numpy.zeros(shape=breaking_i)
+	pos_layer = []
 	for k in range(breaking_i):
 		a_cap = numpy.zeros(shape=mat_len_sq)
 		poslay = numpy.zeros(shape=(mat_len,mat_len))
